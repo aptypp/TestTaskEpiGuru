@@ -1,5 +1,4 @@
 using System;
-using Cysharp.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Networking;
 
@@ -7,21 +6,31 @@ namespace ThirdParty
 {
     public class IpLookUpService
     {
-        public async UniTask<LookUpData> LookUp()
+        public void LookUp(
+            Action<LookUpData> onSuccess,
+            Action onFailed)
         {
-            using var request = UnityWebRequest.Get("http://ip-api.com/json/");
+            var request = UnityWebRequest.Get("http://ip-api.com/json/");
 
             request.useHttpContinue = true;
 
-            await request.SendWebRequest();
+            request.SendWebRequest()
+                .completed += _ =>
+            {
+                if (request.result != UnityWebRequest.Result.Success)
+                {
+                    onFailed();
+                    return;
+                }
 
-            if (request.result != UnityWebRequest.Result.Success) return null;
+                var textData = request.downloadHandler.text;
 
-            var textData = request.downloadHandler.text;
+                var lookUpData = JsonUtility.FromJson<LookUpData>(textData);
 
-            var lookUpData = JsonUtility.FromJson<LookUpData>(textData);
+                onSuccess(lookUpData);
 
-            return lookUpData;
+                request.Dispose();
+            };
         }
     }
 }
