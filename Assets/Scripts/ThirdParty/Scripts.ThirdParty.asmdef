@@ -1,0 +1,20 @@
+{
+    "name": "Scripts.ThirdParty",
+    "rootNamespace": "",
+    "references": [
+        "GUID:5f04e39b3e8604edcb50bcc8c8f5f148",
+        "GUID:2a37df438292d4903b4e5159c5de3bf9",
+        "GUID:76c53d730a38d4b55bf1045c25cd893c",
+        "GUID:f51ebe6a0ceec4240a699833d6309b23",
+        "GUID:df2a24f83ece042be84d3276a68393ed"
+    ],
+    "includePlatforms": [],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": true,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}
