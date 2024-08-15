@@ -15,15 +15,10 @@ namespace Scripts
 
             _lookUpService = new IpLookUpService();
 
-            GetLocation()
+            _lookUpService
+                .LookUp()
+                .ContinueWith(HandleLookUpData)
                 .Forget();
-        }
-
-        private async UniTaskVoid GetLocation()
-        {
-            var lookUpData = await _lookUpService.LookUp();
-
-            HandleLookUpData(lookUpData);
         }
 
         private void HandleLookUpData(
@@ -46,7 +41,6 @@ namespace Scripts
 
         private void StartGame()
         {
-            
         }
     }
 }
